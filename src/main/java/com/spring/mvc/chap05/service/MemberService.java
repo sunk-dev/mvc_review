@@ -52,4 +52,10 @@ public class MemberService {
 
     }
 
+    // 아이디, 이메일 중복검사 서비스
+    public boolean checkDuplicateValue(String type, String keyword) {
+        return memberMapper.isDuplicate(type, keyword);
+    }
+
+
 }
