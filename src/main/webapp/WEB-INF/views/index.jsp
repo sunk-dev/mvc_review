@@ -30,7 +30,25 @@
             }
         }
     %>
+
     <%@include file="include/header.jsp"%>
-    <h1><%=username%>님 안녕하세요~~</h1>
+<%--    <h1><%=username%>님 안녕하세요~~</h1>--%>
+<%--    서버에서 Model 이나 RedirectAttributes 에 담아 놓은 데이터는
+    ${requestScope.aaa}로 참조가능하고 requestScope는 생략가능
+
+    그런데 세션에 담은 데이터는
+    ${sessionScope.aaa}로 참조가능하고 Model에 같은 이름이 없다면
+    sessionScope를 생략가능
+
+    --%>
+<c:if test="${sessionScope.login==null}">
+    <h1>방문자님 안녕하세요</h1>
+
+</c:if>
+<c:if test="${login!=null}">
+    <h1>${login.nickName}(${login.account})님 안녕하세요</h1>
+
+</c:if>
+
 </body>
 </html>
