@@ -79,11 +79,13 @@ public class MemberService {
         LoginUserResponseDTO dto= LoginUserResponseDTO.builder()
                 .account(member.getAccount())
                 .email(member.getEmail())
-                .auth(member.getAuth().toString())
+                .auth(member.getAuth().name())
                 .nickName(member.getName()).build();
 
         //세션에 로그인한 회원의 정보저장
         session.setAttribute(LOGIN_KEY,dto);
+
+
 
         //세션도 수명을 설정해야함
         session.setMaxInactiveInterval(60*60); //1시간 지나면 로그인이 풀리도록 설정
