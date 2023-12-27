@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
+
 @Controller
 @RequestMapping("/members")
 @Slf4j
@@ -118,7 +120,7 @@ public class MemberController {
 
         //HttpSession session = request.getSession();
         //세션에서 로그인 정보기록 삭제
-        session.removeAttribute("login");
+        session.removeAttribute(LOGIN_KEY);
 
         //세션을 초기화
         session.invalidate();

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 
 import static com.spring.mvc.chap05.service.LoginResult.*;
+import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
 
 @Service
 @Slf4j
@@ -78,10 +79,11 @@ public class MemberService {
         LoginUserResponseDTO dto= LoginUserResponseDTO.builder()
                 .account(member.getAccount())
                 .email(member.getEmail())
+                .auth(member.getAuth().toString())
                 .nickName(member.getName()).build();
 
         //세션에 로그인한 회원의 정보저장
-        session.setAttribute("login",dto);
+        session.setAttribute(LOGIN_KEY,dto);
 
         //세션도 수명을 설정해야함
         session.setMaxInactiveInterval(60*60); //1시간 지나면 로그인이 풀리도록 설정
