@@ -32,4 +32,11 @@
 
     </select>
 
+    <update id="saveAutoLogin">
+        update tbl_member
+        set session_id =#{sessionId}, limit_time=#{limitTime}
+        where account=#{account}
+
+    </update>
+
 </mapper>

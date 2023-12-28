@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 public class LoginUtils {
     //로그인 세션키
     public static final String LOGIN_KEY="login";
+    //자동로그인 쿠키이름
+    public static final String AUTO_LOGIN_COOKIE="auto";
 
     //로그인 여부 확인 메서드
     public  static boolean isLogin(HttpSession session){
