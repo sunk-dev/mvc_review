@@ -11,16 +11,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.time.LocalDateTime;
 
 import static com.spring.mvc.chap05.service.LoginResult.*;
-import static com.spring.mvc.util.LoginUtils.AUTO_LOGIN_COOKIE;
-import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
+import static com.spring.mvc.util.LoginUtils.*;
 
 @Service
 @Slf4j
@@ -71,6 +72,7 @@ public class MemberService {
 
             //3.쿠키를 클라이언트에 전송
             response.addCookie(autoLoaginCookie);
+
             //4. DB에도 쿠키에 관련된 값들을 저장(랜덤 세션키 만료시간 저장)저장 갱신 update
             memberMapper.saveAutoLogin(
                     AutoLoginDTO.builder()
@@ -79,6 +81,8 @@ public class MemberService {
                             .account(dto.getAccount())
                             .build()
             );
+
+
 
 
         }
@@ -127,4 +131,25 @@ public class MemberService {
     }
 
 
+    public void autoLoginClear(HttpServletRequest request, HttpServletResponse response) {
+        ///1. 자동로그인 쿠키를 가벼온다
+
+        Cookie c = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
+        //2. 쿠키를 삭제한다
+        //-> 쿠키의 수명을 0으로 설절
+        if(c!=null){
+            c.setMaxAge(0);
+            c.setPath("/");
+            response.addCookie(c);
+            
+            //3. 데이터베이스도 세션아이디와 만료시간을 제거한다.
+            memberMapper.saveAutoLogin(AutoLoginDTO.builder()
+                            .sessionId("none")
+                            .limitTime(LocalDateTime.now())
+                            .account(getCurrentLoginMemberAccount(request.getSession()))
+                            .build());
+            
+        }
+
+    }
 }

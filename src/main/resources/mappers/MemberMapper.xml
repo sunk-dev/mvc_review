@@ -39,4 +39,11 @@
 
     </update>
 
+    <select id="findMemberByCookie" resultType="member">
+        select
+           account, name,email,auth,limit_time
+        from tbl_member
+        where session_id=#{sessionId}
+    </select>
+
 </mapper>

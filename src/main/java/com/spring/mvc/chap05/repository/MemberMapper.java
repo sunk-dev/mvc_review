@@ -24,4 +24,7 @@ public interface MemberMapper {
 
     // 자동로그인 세션키 ,만료시간 없데이트
     void  saveAutoLogin(AutoLoginDTO dto);
+
+    //쿠키값으로 (세션아이디) 로 회원정보를 조회
+    Member findMemberByCookie(String sessionId);
 }
