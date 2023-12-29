@@ -12,7 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class ReplyDetailResponseDTO {
+public class
+
+
+ReplyDetailResponseDTO {
 
     private long rno;
     private String text;
