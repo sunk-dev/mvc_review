@@ -26,6 +26,7 @@ public class AutoLoginInterceptor  implements HandlerInterceptor {
         //1. 사이트에 들어오면 자동로그인 쿠키를 가진 클라이언트인지 체크
         Cookie autoLoginCookie = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
 
+
         //2. 자동로그인 쿠키가 있다면 로그인 처리를 수행
         if(autoLoginCookie!=null){
             //3. 지금 읽은 쿠키에 들어있는 session_id 확인
