@@ -5,9 +5,11 @@ import com.spring.mvc.chap05.dto.request.LoginRequestDTO;
 import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.spring.mvc.chap05.service.LoginResult;
 import com.spring.mvc.chap05.service.MemberService;
+import com.spring.mvc.util.upload.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ import static com.spring.mvc.util.LoginUtils.*;
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {
+
+    @Value("${file.upload.root-path}")
+    private  String rootPath;
 
     private final MemberService memberService;
 
@@ -51,8 +56,13 @@ public class MemberController {
     public String signUp(SignUpRequestDTO dto) {
         log.info("/member/sign-up POST !");
         log.debug("parameter: {}", dto);
-        boolean flag = memberService.join(dto);
+        log.debug(dto.getProfileImage().getOriginalFilename());
+        //서버에 파일 업로드
+
+        String savePath=FileUtil.uploadFile(dto.getProfileImage(), rootPath);
+        boolean flag = memberService.join(dto,savePath);
         return flag ? "redirect:/board/list" : "redirect:/members/sign-up";
+
     }
 
     // 로그인 양식 요청

@@ -26,13 +26,21 @@ public class FileUtil {
         
         //이파일을 날짜별로 관리하기 위해 날짜별 폴더를 생성
         String newUploadPath=makeDateFormatDirectory(rootPath);
+
+        //파일의 풀경로를 생성
+        String fullPath=newUploadPath+"/"+newFileName;
+
         //파일 업로드 수행
         try {
             file.transferTo(new File(newUploadPath,newFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
+
+
+        //full-path= D://av/upload/2024/01/02/fjkfl/fjklj.jpg
+        //return path /2024/01/02/fjkfl/fjklj.jpg
+        return fullPath.substring(rootPath.length());
     }
 
     /**

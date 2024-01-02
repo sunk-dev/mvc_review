@@ -6,7 +6,6 @@ import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.spring.mvc.chap05.dto.response.LoginUserResponseDTO;
 import com.spring.mvc.chap05.entity.Member;
 import com.spring.mvc.chap05.repository.MemberMapper;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,11 +31,14 @@ public class MemberService {
     private final PasswordEncoder encoder;
 
     // 회원가입 처리 서비스
-    public boolean join(SignUpRequestDTO dto) {
+    public boolean join(SignUpRequestDTO dto, String savePath) {
 
         // 클라이언트가 보낸 회원가입 데이터를
         // 패스워드 인코딩하여 엔터티로 변환해서 전달
-        return memberMapper.save(dto.toEntity(encoder));
+
+        Member member = dto.toEntity(encoder);
+        member.setProfileImage(savePath);
+        return memberMapper.save(member);
     }
 
     // 로그인 검증 처리
