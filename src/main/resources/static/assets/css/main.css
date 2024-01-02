@@ -127,3 +127,17 @@ header .gnb ul li.active
 {
     color: #fff;
 }
+/* 프로필 css */
+header .inner-header .profile-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+header .inner-header .profile-box img {
+    width: 100%;
+}
+
+
+
+

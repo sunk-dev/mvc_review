@@ -118,7 +118,9 @@ public class MemberService {
                 .account(member.getAccount())
                 .email(member.getEmail())
                 .auth(member.getAuth().name())
-                .nickName(member.getName()).build();
+                .nickName(member.getName())
+                .profile(member.getProfileImage())
+                .build();
 
         //세션에 로그인한 회원의 정보저장
         session.setAttribute(LOGIN_KEY,dto);
