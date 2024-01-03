@@ -30,6 +30,10 @@
         , B.content, B.view_count
         , B.reg_date_time, B.account
         , M.name AS writer
+
+
+
+
         FROM tbl_board B
         JOIN tbl_member M
         ON B.account = M.account

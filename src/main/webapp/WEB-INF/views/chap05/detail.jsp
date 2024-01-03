@@ -182,18 +182,9 @@
                     <c:if test="${not empty login}">
                         <div class="row">
                             <div class="col-md-9">
-                                <div class="form-group">
 
-                                    <div class="profile-box">
-                                        <c:choose>
-                                            <c:when test="${login.profile != null}">
-                                                <img src="/local${login.profile}" alt="프사">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="/assets/img/anonymous.jpg" alt="프사">
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
+
+                                <div class="form-group">
 
 
                                     <label for="newReplyText" hidden>댓글 내용</label>
@@ -202,6 +193,19 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
+
+                                <div class="profile-box">
+                                    <c:choose>
+                                        <c:when test="${login.profile != null}">
+                                            <img src="/local${login.profile}" alt="프사">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="/assets/img/anonymous.jpg" alt="프사">
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+
+
                                 <div class="form-group">
                                     <label for="newReplyWriter" hidden>댓글 작성자</label>
                                     <input id="newReplyWriter" name="replyWriter" type="text"
@@ -331,13 +335,17 @@
         if (replies !== null && replies.length > 0) {
             for (let reply of replies) {
 
-                const {rno, writer, text, regDate, account} = reply;
+                const {rno, writer, text, regDate, account,profile} = reply;
 
                 tag += `
         <div id='replyContent' class='card-body' data-replyId='\${rno}'>
             <div class='row user-block'>
                 <span class='col-md-8'>
-                    <b>\${writer}</b>
+                `
+                tag+= (profile? `<img class='reply-profile' src="/local\${profile}" alt="profile img">`
+                              :`<img class="reply-profile" src="/assets/img/anonymous.jpg">`)
+
+                tag+=    `<b>\${writer}</b>
                 </span>
                 <span class='col-md-3 text-right'><b>\${regDate}</b></span>
             </div><br>
