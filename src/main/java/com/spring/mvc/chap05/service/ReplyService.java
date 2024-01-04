@@ -47,7 +47,10 @@ public class ReplyService {
     }
 
     // 댓글 등록 서비스
-    public ReplyListResponseDTO register(ReplyPostRequestDTO dto, HttpSession session) throws SQLException {
+    public ReplyListResponseDTO
+
+
+    register(ReplyPostRequestDTO dto, HttpSession session) throws SQLException {
         log.debug("register services execute!!!");
 
         // dto를 entity로 변환
