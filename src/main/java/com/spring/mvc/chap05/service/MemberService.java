@@ -35,6 +35,7 @@ public class MemberService {
 
         // 클라이언트가 보낸 회원가입 데이터를
         // 패스워드 인코딩하여 엔터티로 변환해서 전달
+        savePath="/local"+savePath;
 
         Member member = dto.toEntity(encoder);
         member.setProfileImage(savePath);
@@ -120,6 +121,7 @@ public class MemberService {
                 .auth(member.getAuth().name())
                 .nickName(member.getName())
                 .profile(member.getProfileImage())
+                .loginMethod(member.getLoginMethod().toString())
                 .build();
 
         //세션에 로그인한 회원의 정보저장

@@ -3,6 +3,7 @@ package com.spring.mvc.chap05.controller;
 
 import com.spring.mvc.chap05.dto.request.LoginRequestDTO;
 import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
+import com.spring.mvc.chap05.dto.response.LoginUserResponseDTO;
 import com.spring.mvc.chap05.service.LoginResult;
 import com.spring.mvc.chap05.service.MemberService;
 import com.spring.mvc.util.upload.FileUtil;
@@ -138,6 +139,12 @@ public class MemberController {
                 // 쿠키를 삭제해주고 디비 데이터도 원래대로 돌려놓는다.
                 memberService.autoLoginClear(request,response);
 
+            }
+            //sns 로그인 상태인지 확인
+            LoginUserResponseDTO attribute =(LoginUserResponseDTO) session.getAttribute(LOGIN_KEY);
+            if(attribute.getLoginMethod().equals("KAKAO"))
+            {
+                //카카오 로그인 처리~
             }
 
 
